@@ -1,0 +1,26 @@
+{
+  "name": "monefy",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "client": "cd client && yarn start",
+    "server": "nodemon ./bin/www",
+    "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "dotenv": "^5.0.1",
+    "express": "~4.16.0",
+    "joi": "^13.1.2",
+    "jsonwebtoken": "^8.2.0",
+    "mongoose": "^5.0.12",
+    "morgan": "~1.9.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1"
+  }
+}
