@@ -1,20 +1,16 @@
 import * as React from 'react';
-import './App.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Home from './components/Home';
 
-const logo = require('./logo.svg');
+import './App.css';
 
 class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
+      <Router>
+        <Route exact={true} path="/" component={Home} />
+        <Route exact={true} path="/login" component={Login} />
+      </Router>
     );
   }
 }
