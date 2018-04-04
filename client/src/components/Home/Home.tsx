@@ -1,12 +1,10 @@
 import * as React from 'react';
+import HomeProps from './HomeProps';
+import HomeState from './HomeState';
 import './Home.css';
 
-class Home extends React.Component {
-  render() {
-    return(
-      <div>Home</div>
-    );
-  }
+export default class Home extends React.Component<HomeProps, HomeState> {
+    render() {
+        return (<div>Home Component</div>);
+    }
 }
-
-export default Home;
