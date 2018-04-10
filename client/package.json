@@ -116,5 +116,6 @@
     "templatesDirPath": "templates",
     "templateName": "ts-component",
     "path": "./src/components"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }

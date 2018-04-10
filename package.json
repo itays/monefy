@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "client": "cd client && yarn start",
+    "serve": "concurrently \"webpack -w\" \"nodemon dist/App.bundle.js\"",
     "server": "nodemon ./bin/www",
-    "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+    "start": "concurrently --kill-others-on-fail \"yarn serve\" \"yarn client\""
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
