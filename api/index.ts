@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
     new Record(100, RecordType.EXPENSE),
     new Record(200, RecordType.EXPENSE),
   ];
-  res.json({ expenses });
+  res.json(expenses);
 });
 
 export default router;

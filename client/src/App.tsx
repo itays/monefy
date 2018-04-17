@@ -9,7 +9,7 @@ class App extends React.Component {
   render() {
     return (
         <Router>
-          <Container>    
+          <Container fluid={true}>    
               <Route exact={true} path="/" component={Home} />
               <Route exact={true} path="/login" component={Login} />
           </Container>

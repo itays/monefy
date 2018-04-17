@@ -3,10 +3,10 @@ import * as ReactDOM from 'react-dom';
 import App from './App';
 import 'semantic-ui/dist/semantic.min.css';
 
-import registerServiceWorker from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
   <App />,
   document.getElementById('root') as HTMLElement
 );
-registerServiceWorker();
+// registerServiceWorker();

@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "client": "cd client && yarn start",
-    "serve": "concurrently \"webpack -w\" \"nodemon dist/App.bundle.js\"",
-    "server": "nodemon ./bin/www",
-    "start": "concurrently --kill-others-on-fail \"yarn serve\" \"yarn client\""
+    "start:client": "cd client && yarn start",
+    "serve": "concurrently \"webpack -w\" \"nodemon --inspect dist/App.bundle.js\"",
+    "start:server": "nodemon dist/App.bundle.js",
+    "heroku-postbuild": "yarn build && cd client && yarn --production=false && yarn build",
+    "start:dev": "concurrently --kill-others-on-fail \"yarn serve\" \"yarn start:client\"",
+    "start": "node dist/App.bundle.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -34,6 +36,7 @@
     "@types/passport": "^0.4.4",
     "@types/passport-jwt": "^3.0.1",
     "concurrently": "^3.5.1",
+    "cross-env": "^5.1.4",
     "ts-loader": "^4.2.0",
     "ts-node": "^5.0.1",
     "tslint": "^5.9.1",

@@ -2,6 +2,7 @@ import * as React from 'react';
 import HomeProps from './HomeProps';
 import HomeState from './HomeState';
 import { RecordInterface, Record } from '../../models/Record';
+import Nav from '../Nav';
 import './Home.scss';
 
 export default class Home extends React.Component<HomeProps, HomeState> {
@@ -12,9 +13,9 @@ export default class Home extends React.Component<HomeProps, HomeState> {
         // tslint:disable-next-line:no-console
         console.log(this.state.expenses);
         // tslint:disable-next-line:no-console
-        fetch('/api').then(res => res.json()).then((result: {expenses: RecordInterface[]}) => {
+        fetch('/api').then(res => res.json()).then((result: RecordInterface[]) => {
             const expenses: RecordInterface[] = [];
-            result.expenses.map((record) => expenses.push(new Record(record.amount, record.type)));
+            result.map((record) => expenses.push(new Record(record.amount, record.type)));
             this.setState({expenses});
         });
     }
@@ -23,7 +24,8 @@ export default class Home extends React.Component<HomeProps, HomeState> {
     }
     render() {
         return (
-            <div>
+            <div className="home">
+                <Nav/>
                 {this.state.expenses.length && this.renderData()}
             </div>
         );
