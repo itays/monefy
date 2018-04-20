@@ -4,6 +4,9 @@ import * as express from 'express';
 import * as morgan from 'morgan';
 import api from './api';
 import * as path from 'path';
+import connectDb from './config/db';
+connectDb();
+
 const app = express();
 
 app.use('/api', api);
