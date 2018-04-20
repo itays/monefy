@@ -4,14 +4,16 @@ import * as express from 'express';
 import * as morgan from 'morgan';
 import api from './api';
 import * as path from 'path';
+import * as expressValidator from 'express-validator';
 import connectDb from './config/db';
 connectDb();
 
 const app = express();
 
-app.use('/api', api);
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(expressValidator());
+app.use('/api', api);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.resolve(__dirname + '/../client/build')));
 app.get('*', (req, res) => {
