@@ -42,11 +42,13 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   email: {
     type: String,
-    required: 'email is required'
+    required: true,
+    lowercase: true,
+    unique: true
   },
   password: {
     type: String,
-    required: 'password is required'
+    required: true
   }
 },                            { timestamps: true });
 // create a mondel
