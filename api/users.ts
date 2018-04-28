@@ -72,4 +72,8 @@ router.post(
   )
 );
 
+router.post('/login', (req, res, next) => {
+  res.json('ok');
+});
+
 export default router;
