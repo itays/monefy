@@ -1,5 +1,11 @@
-import { Schema, model, HookNextFunction } from 'mongoose';
+import { Schema, model, Model, HookNextFunction } from 'mongoose';
 import * as bcrypt from 'bcryptjs';
+import * as mongoose from 'mongoose';
+export interface UserModel extends mongoose.Document {
+  email: string;
+  password: string;
+  isValidPassword(password: string): boolean;
+}
 
 // Create a schema
 // const Schema = mongoose.Schema;
@@ -39,7 +45,7 @@ import * as bcrypt from 'bcryptjs';
 //   }
 // });
 
-const userSchema: Schema = new Schema(
+const userSchema: Schema = new mongoose.Schema(
   {
     email: {
       type: String,
@@ -69,7 +75,16 @@ userSchema.pre('save', async function(next: HookNextFunction) {
 }
 });
 
+userSchema.methods.isValidPassword = async function(newPassword: string) {
+  try {
+    const isValid = await bcrypt.compare(newPassword, this.password);
+    return isValid;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 // create a mondel
-const User = model('user', userSchema);
+const User: Model<UserModel> = model<UserModel>('user', userSchema);
 
 export default User;

@@ -1,5 +1,6 @@
 import * as passport from 'passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
+import { Strategy as LocalStrategy } from 'passport-local';
 import { Request, Response, NextFunction } from 'express';
 import User from '../schemas/User';
 
@@ -35,6 +36,28 @@ passport.use(
     }
   )
 );
+
+// LOCAL STRATEGY
+passport.use(new LocalStrategy(
+  { usernameField: 'email' },
+  async (email, password, done) => {
+    try {
+      // Find the user given the email
+      const user = await User.findOne({ email });
+
+      // If not, handle it
+      if (!user) {
+        return done(null, false);
+      }
+      
+      // Check if the password is correct
+      const isMatch = await user.isValidPassword(password);
+      done(null, email);
+    } catch (error) {
+      done(error, false);
+    }
+  }
+));
 
 /**
  * Login Required middleware.

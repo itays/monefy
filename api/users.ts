@@ -4,6 +4,8 @@ import { sign as JwtSign } from 'jsonwebtoken';
 import { catchErrors } from '../handlers/errorHandlers';
 import { check, validationResult } from 'express-validator/check';
 import { matchedData } from 'express-validator/filter';
+import * as passport from 'passport';
+import '../config/passport';
 
 const router = express.Router();
 
@@ -72,7 +74,7 @@ router.post(
   )
 );
 
-router.post('/login', (req, res, next) => {
+router.post('/login', passport.authenticate('local', { session: false}), (req, res, next) => {
   res.json('ok');
 });
 
