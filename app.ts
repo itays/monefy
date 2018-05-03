@@ -13,9 +13,9 @@ const app = express();
 
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(expressValidator());
 app.use(passport.initialize());
-app.use(passport.session());
+import './config/passport';
+app.use(expressValidator());
 app.use('/api', api);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.resolve(__dirname + '/../client/build')));

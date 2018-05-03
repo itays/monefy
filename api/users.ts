@@ -1,11 +1,11 @@
 import * as express from 'express';
+import { Request, Response, ErrorRequestHandler, NextFunction } from 'express';
 import User from '../schemas/User';
 import { sign as JwtSign } from 'jsonwebtoken';
 import { catchErrors } from '../handlers/errorHandlers';
 import { check, validationResult } from 'express-validator/check';
 import { matchedData } from 'express-validator/filter';
 import * as passport from 'passport';
-import '../config/passport';
 
 const router = express.Router();
 
@@ -15,10 +15,10 @@ const signToken = (user: any) =>
     {
       iss: 'monefy',
       sub: user._id,
-      iat: new Date().getTime(),
-      exp: new Date().setDate(new Date().getDate() + 1) // current time + 1 day ahead
+      iat: Math.round(Date.now() / 1000)
     },
-    process.env.SECRET
+    process.env.SECRET,
+    { expiresIn: '3m'}
   );
 
 /* GET home page. */
@@ -74,8 +74,12 @@ router.post(
   )
 );
 
-router.post('/login', passport.authenticate('local', { session: false}), (req, res, next) => {
-  res.json('ok');
+router.post('/login', passport.authenticate('local', { session: false, failWithError: true}), 
+            (req: Request, res: Response, next: NextFunction) => {
+              const token = signToken(req.user);
+              res.json({token});
+},          (err: ErrorRequestHandler, req: Request, res: Response, next: NextFunction) => {
+  res.status(400).json(err);
 });
 
 export default router;

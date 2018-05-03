@@ -4,13 +4,6 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import { Request, Response, NextFunction } from 'express';
 import User from '../schemas/User';
 
-// tslint:disable-next-line:no-any
-passport.serializeUser((user: any, done) => {
-  done(undefined, user.id);
-});
-
-passport.deserializeUser((id, done) => done(null, id));
-
 // JSON WEB TOKENS STRATEGY
 passport.use(
   new Strategy(
@@ -52,32 +45,13 @@ passport.use(new LocalStrategy(
       
       // Check if the password is correct
       const isMatch = await user.isValidPassword(password);
-      done(null, email);
+      if (!isMatch) {
+        return done(null, false, { message: 'invalid password'});
+      }
+
+      return done(null, user);
     } catch (error) {
-      done(error, false);
+      return done(error, false);
     }
   }
 ));
-
-/**
- * Login Required middleware.
- */
-export let isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/login');
-};
-
-/**
- * Authorization Required middleware.
- */
-// export let isAuthorized = (req: Request, res: Response, next: NextFunction) => {
-//   const provider = req.path.split('/').slice(-1)[0];
-
-//   if (_.find(req.user.tokens, { kind: provider })) {
-//     next();
-//   } else {
-//     res.redirect(`/auth/${provider}`);
-//   }
-// };

@@ -2,8 +2,6 @@ import * as express from 'express';
 import userRoutes from './users';
 import { Record, RecordType } from '../models/Record';
 import * as passport from 'passport';
-import '../config/passport';
-// import * as passportConfig from '../config/passport';
 
 const router = express.Router();
 
