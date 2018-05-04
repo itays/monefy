@@ -22,6 +22,7 @@
     "mongoose": "^5.0.12",
     "morgan": "~1.9.0",
     "passport": "^0.4.0",
+    "passport-google-oauth": "^1.0.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "validator": "^9.4.1"
@@ -39,6 +40,7 @@
     "@types/morgan": "^1.7.35",
     "@types/node": "^7.0.60",
     "@types/passport": "^0.4.4",
+    "@types/passport-google-oauth": "^1.0.38",
     "@types/passport-jwt": "^3.0.1",
     "@types/passport-local": "^1.0.33",
     "@types/validator": "^9.4.0",
